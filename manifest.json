@@ -1,0 +1,9 @@
+{
+    "name": "Civil Material Calculator",
+    "short_name": "CivilCalc",
+    "description": "Civil engineering material calculator by Gaurav Dane",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#007bff"
+}
