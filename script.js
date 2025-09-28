@@ -1,0 +1,127 @@
+// Tab functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const tabButtons = document.querySelectorAll('.tab-button');
+    
+    tabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const tabId = this.getAttribute('data-tab');
+            
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            this.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        });
+    });
+
+    // Decimal input fix
+    document.querySelectorAll('input[type="number"]').forEach(input => {
+        input.addEventListener('input', function(e) {
+            // Allow numbers and decimal point
+            this.value = this.value.replace(/[^0-9.]/g, '');
+            
+            // Allow only one decimal point
+            if ((this.value.match(/\./g) || []).length > 1) {
+                this.value = this.value.substring(0, this.value.lastIndexOf('.'));
+            }
+        });
+    });
+});
+
+function calculateConcrete() {
+    const length = parseFloat(document.getElementById('concrete-length').value) || 0;
+    const width = parseFloat(document.getElementById('concrete-width').value) || 0;
+    const thickness = parseFloat(document.getElementById('concrete-thickness').value) || 0;
+    
+    if (length <= 0 || width <= 0 || thickness <= 0) {
+        alert('कृपया सभी फील्ड्स में वैलिड नंबर डालें');
+        return;
+    }
+    
+    const volume = length * width * thickness;
+    const cementBags = volume * 6.0; // Updated to 6.0 bags
+    const sand = volume * 0.45;
+    const aggregate = volume * 0.9;
+    const water = volume * 180;
+    
+    document.getElementById('concrete-volume').textContent = volume.toFixed(3);
+    document.getElementById('concrete-cement').textContent = cementBags.toFixed(1);
+    document.getElementById('concrete-sand').textContent = sand.toFixed(3);
+    document.getElementById('concrete-aggregate').textContent = aggregate.toFixed(3);
+    document.getElementById('concrete-water').textContent = water.toFixed(1);
+    
+    document.getElementById('concrete-result').style.display = 'block';
+}
+
+function calculateBricks() {
+    const length = parseFloat(document.getElementById('brick-length').value) || 0;
+    const height = parseFloat(document.getElementById('brick-height').value) || 0;
+    const thickness = parseFloat(document.getElementById('brick-thickness').value);
+    
+    if (length <= 0 || height <= 0) {
+        alert('कृपया लंबाई और ऊंचाई में वैलिड नंबर डालें');
+        return;
+    }
+    
+    const area = length * height;
+    const bricksPerSqm = 50 * thickness;
+    const totalBricks = Math.ceil(bricksPerSqm * area * 1.05);
+    const mortarVolume = area * thickness * 0.2 * 0.3;
+    const cementBags = mortarVolume * 1.5;
+    const sand = mortarVolume * 0.3;
+    
+    document.getElementById('brick-area').textContent = area.toFixed(2);
+    document.getElementById('brick-count').textContent = totalBricks;
+    document.getElementById('brick-cement').textContent = cementBags.toFixed(1);
+    document.getElementById('brick-sand').textContent = sand.toFixed(3);
+    
+    document.getElementById('brick-result').style.display = 'block';
+}
+
+function calculateSteel() {
+    const length = parseFloat(document.getElementById('steel-length').value) || 0;
+    const diameter = parseFloat(document.getElementById('steel-diameter').value);
+    const quantity = parseInt(document.getElementById('steel-quantity').value) || 1;
+    
+    if (length <= 0 || quantity <= 0) {
+        alert('कृपया लंबाई और क्वांटिटी में वैलिड नंबर डालें');
+        return;
+    }
+    
+    const weightPerMeter = (diameter * diameter) / 162;
+    const weightPerBar = weightPerMeter * length;
+    const totalWeight = weightPerBar * quantity;
+    const totalLength = length * quantity;
+    
+    document.getElementById('steel-weight-single').textContent = weightPerBar.toFixed(2);
+    document.getElementById('steel-weight-total').textContent = totalWeight.toFixed(2);
+    document.getElementById('steel-length-total').textContent = totalLength.toFixed(2);
+    
+    document.getElementById('steel-result').style.display = 'block';
+}
+
+function calculatePlaster() {
+    const length = parseFloat(document.getElementById('plaster-length').value) || 0;
+    const height = parseFloat(document.getElementById('plaster-height').value) || 0;
+    const thickness = parseFloat(document.getElementById('plaster-thickness').value) || 12;
+    
+    if (length <= 0 || height <= 0 || thickness <= 0) {
+        alert('कृपया सभी फील्ड्स में वैलिड नंबर डालें');
+        return;
+    }
+    
+    const area = length * height;
+    const volume = area * (thickness / 1000);
+    const cementVolume = volume / 7;
+    const sandVolume = volume * 6/7;
+    const cementBags = cementVolume * 30;
+    
+    document.getElementById('plaster-area').textContent = area.toFixed(2);
+    document.getElementById('plaster-cement').textContent = Math.ceil(cementBags);
+    document.getElementById('plaster-sand').textContent = sandVolume.toFixed(3);
+    document.getElementById('plaster-volume').textContent = volume.toFixed(3);
+    
+    document.getElementById('plaster-result').style.display = 'block';
+}
