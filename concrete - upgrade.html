@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Civil Calculator - Concrete Upgrade</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial; background: #667eea; padding: 20px; }
+        .container { max-width: 500px; margin: 0 auto; background: white; border-radius: 20px; padding: 20px; }
+        h1 { text-align: center; color: #2c3e50; margin-bottom: 20px; }
+        .input-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, select { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 10px; }
+        button { width: 100%; padding: 15px; background: #007bff; color: white; border: none; border-radius: 10px; font-size: 16px; }
+        .result { margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏗️ Concrete Calculator (Upgraded)</h1>
+        
+        <div class="input-group">
+            <label for="concrete-grade">Concrete Grade:</label>
+            <select id="concrete-grade">
+                <option value="4.5">M10 (1:3:6) - 4.5 bags/m³</option>
+                <option value="6.0">M15 (1:2:4) - 6.0 bags/m³</option>
+                <option value="6.5" selected>M20 (1:1.5:3) - 6.5 bags/m³</option>
+                <option value="8.0">M25 (1:1:2) - 8.0 bags/m³</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label for="length">Length (m):</label>
+            <input type="number" id="length" placeholder="2.5" step="0.01" min="0">
+        </div>
+        
+        <div class="input-group">
+            <label for="width">Width (m):</label>
+            <input type="number" id="width" placeholder="1.5" step="0.01" min="0">
+        </div>
+        
+        <div class="input-group">
+            <label for="thickness">Thickness (m):</label>
+            <input type="number" id="thickness" placeholder="0.15" step="0.01" min="0">
+        </div>
+        
+        <button onclick="calculate()">Calculate Concrete</button>
+        
+        <div id="result" class="result" style="display: none;">
+            <h3>Results:</h3>
+            <p>Volume: <span id="volume">0</span> m³</p>
+            <p>Cement: <span id="cement">0</span> bags</p>
+            <p>Sand: <span id="sand">0</span> m³</p>
+            <p>Aggregate: <span id="aggregate">0</span> m³</p>
+        </div>
+    </div>
+
+    <script>
+        function calculate() {
+            const grade = parseFloat(document.getElementById('concrete-grade').value);
+            const length = parseFloat(document.getElementById('length').value) || 0;
+            const width = parseFloat(document.getElementById('width').value) || 0;
+            const thickness = parseFloat(document.getElementById('thickness').value) || 0;
+            
+            const volume = length * width * thickness;
+            const cement = volume * grade;
+            const sand = volume * 0.45;
+            const aggregate = volume * 0.9;
+            
+            document.getElementById('volume').textContent = volume.toFixed(3);
+            document.getElementById('cement').textContent = cement.toFixed(1);
+            document.getElementById('sand').textContent = sand.toFixed(3);
+            document.getElementById('aggregate').textContent = aggregate.toFixed(3);
+            
+            document.getElementById('result').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
