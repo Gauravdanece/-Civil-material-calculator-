@@ -3,9 +3,10 @@
 A professional web-based civil engineering calculator for material estimation. Perfect for contractors, engineers, and construction workers.
 
 ## 🌐 Live Demo
-**Visit:** https://gauravdanece.github.io/-civil-material-calculator/
+**Visit:** 
+https://gauravdanece.github.io/-Civil-material-calculator-/
 
-## 📱 Features
+📱 Features
 - ✅ **Concrete Calculator** - Cement, Sand, Aggregate calculation
 - ✅ **Brickwork Calculator** - Bricks, Mortar estimation  
 - ✅ **Steel Calculator** - Reinforcement bar weight calculation
