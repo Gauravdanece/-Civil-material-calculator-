@@ -1,2 +1,1 @@
-# -Civil-material-calculator-
-Civil Material Calculator Web App
+civil-material-calculator
