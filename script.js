@@ -162,3 +162,45 @@ function calculatePlaster() {
     
     document.getElementById('plaster-result').style.display = 'block';
 }
+
+
+
+function calculateConcreteSlab() {
+    // Get input values
+    const length = parseFloat(document.getElementById('slabLength').value);
+    const width = parseFloat(document.getElementById('slabWidth').value);
+    const height = parseFloat(document.getElementById('slabHeight').value);
+    const cementRatio = parseFloat(document.getElementById('cementRatio').value);
+    const sandRatio = parseFloat(document.getElementById('sandRatio').value);
+    const aggregateRatio = parseFloat(document.getElementById('aggregateRatio').value);
+
+    // Validation
+    if (!length || !width || !height || !cementRatio || !sandRatio || !aggregateRatio) {
+        alert("Please fill all fields with valid numbers");
+        return;
+    }
+
+    // Calculations
+    const volume = length * width * height;
+    const totalParts = cementRatio + sandRatio + aggregateRatio;
+    
+    const cementVolume = volume * (cementRatio / totalParts);
+    const bagsOfCement = cementVolume / 0.035; // 1 bag = 0.035 m³
+    
+    const sandVolume = volume * (sandRatio / totalParts);
+    const aggregateVolume = volume * (aggregateRatio / totalParts);
+
+    // Display results
+    const resultDiv = document.getElementById('concreteResult');
+    resultDiv.innerHTML = `
+        <h3>Concrete Slab Results:</h3>
+        <p><strong>Volume of concrete needed:</strong> ${volume.toFixed(2)} m³</p>
+        <p><strong>Bags of cement required:</strong> ${bagsOfCement.toFixed(1)} (${Math.ceil(bagsOfCement)} whole bags)</p>
+        <p><strong>Volume of sand required:</strong> ${sandVolume.toFixed(2)} m³</p>
+        <p><strong>Volume of aggregate required:</strong> ${aggregateVolume.toFixed(2)} m³</p>
+        <div class="breakdown">
+            <h4>Mix Ratio Breakdown:</h4>
+            <p>Cement : Sand : Aggregate = ${cementRatio}:${sandRatio}:${aggregateRatio}</p>
+        </div>
+    `;
+}
